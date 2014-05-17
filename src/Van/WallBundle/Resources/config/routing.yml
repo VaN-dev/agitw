@@ -1,0 +1,23 @@
+vanwall_index:
+    path:      /
+    defaults:  { _controller: VanWallBundle:Default:index }
+
+vanwall_publish:
+    path:      /publish
+    defaults:  { _controller: VanWallBundle:Default:publish }
+
+vanwall_invite:
+    path:      /invite
+    defaults:  { _controller: VanWallBundle:Default:invite }
+
+vanwall_invitation:
+    path:      /invitation/{id}
+    defaults:  { _controller: VanWallBundle:Default:invitation }
+
+vanwall_invitation_accept:
+    path:      /invitation/{id}/accept
+    defaults:  { _controller: VanWallBundle:Default:acceptInvitation }
+
+vanwall_invitation_decline:
+    path:      /invitation/{id}/decline
+    defaults:  { _controller: VanWallBundle:Default:declineInvitation }

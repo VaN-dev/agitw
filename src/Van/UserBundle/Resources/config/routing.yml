@@ -1,0 +1,5 @@
+vanuser_profile:
+    path:      /users/{id}
+    defaults:  { _controller: VanUserBundle:Default:profile }
+    # requirements:
+        # id:  \d+

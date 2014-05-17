@@ -1,0 +1,38 @@
+<?php
+// src/Van/WallBundle/Document/Post.php
+
+namespace Van\WallBundle\Document;
+
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Doctrine\ODM\MongoDB\Mapping\Annotations\ReferenceOne;
+
+/**
+ * @MongoDB\Document
+ */
+class Post
+{
+    /**
+     * @MongoDB\Id
+     */
+    protected $id;
+    
+    /** 
+     * @ReferenceOne(targetDocument="\Van\UserBundle\Document\User", inversedBy="posts") 
+     */
+    protected $user;
+    
+    /**
+     * @MongoDB\String
+     */
+    protected $content;
+
+    /**
+     * @MongoDB\Date
+     */
+    protected $date;
+    
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+    }
+}

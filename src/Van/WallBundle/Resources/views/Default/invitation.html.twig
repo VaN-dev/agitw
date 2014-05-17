@@ -1,0 +1,94 @@
+{# src/Van/WallBundle/Resources/views/Default/invitation.html.twig #}
+
+{% if form is defined %}
+    {% form_theme form 'VanWallBundle:Form:fields.html.twig' 'VanWallBundle:Form:textarea_widget.html.twig' %} 
+{% endif %}
+
+{% extends 'VanWallBundle::layout.html.twig' %}
+
+{% block title %}{{ parent() }} - Index{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    
+    {% for message in app.session.flashbag.get('info') %}
+        <p>{{ message }}</p>
+    {% endfor %}
+    
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+    
+        <div class="col-md-3" role="navigation">
+            <div class="list-group">
+                <a class="list-group-item active" href="#">Link</a>
+                <a class="list-group-item" href="#">Link</a>
+                <a class="list-group-item" href="#">Link</a>
+                <a class="list-group-item" href="#">Link</a>
+            </div>
+            
+            {#
+            <h3>The Mighty Computer</h3>
+            <div class="calculator row"> 
+                <div class="col-md-7">
+                    {% set buttons = [9,8,7,6,5,4,3,2,1] %}
+                    
+                    {% for key, button in buttons %}
+                        {% if (key) % 3 == 0 %}
+                            <br />
+                        {% endif %}
+                        <button value="{{ button }}" class="btn btn-primary calculator-btn" data-role="operand">{{ button }}</button>
+                    {% endfor %}
+                </div>
+                <div class="col-md-5">
+                    {% set buttons = ['+','-','*','/'] %}
+                    
+                    {% for key, button in buttons %}
+                        {% if (key) % 2 == 0 %}
+                            <br />
+                        {% endif %}
+                        <button value="{{ button }}" class="btn btn-primary calculator-btn" data-role="operator">{{ button }}</button>
+                    {% endfor %}
+                </div>
+                <div class="clearfix"></div>
+                <br />
+                <div class="col-md-12">
+                    <input type="text" name="calculator[value1]" id="calculator-value1" class="calculator-field" />
+                    <span class="calculator-operator" id="calculator-operator"></span>
+                    <input type="text" name="calculator[value2]" id="calculator-value2" class="calculator-field" />
+                    <button value="compute" class="btn btn-primary calculator-btn">=</button>
+                    <input type="text" name="calculator[result]" id="calculator-result" class="calculator-field" />
+                </div>
+            </div>
+            #}
+            
+            <h3>Find friends</h3>
+            {% if users is defined %}
+                <ul>
+                {% for user in users %}
+                    <li><a href="{{ path('vanuser_profile', {'id': user.id}) }}">{{ user.username }}</a></li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            
+        </div>
+        
+        <div id="content" class="col-md-9">
+            <h3>Invitation #{{ invitation.id }}</h3>
+            
+            <p>{{ invitation.from.username }} wants to be your friend.</p>
+            
+            <a href="{{ path('vanwall_invitation_accept', {'id': invitation.id}) }}">Accept</a>
+            <a href="{{ path('vanwall_invitation_decline', {'id': invitation.id}) }}">Decline</a>
+            
+            {% block fos_user_content %}{% endblock %}
+            
+        </div>
+    
+    {% else %}
+    
+    
+    {% endif %}
+
+</div>
+
+{% endblock %}

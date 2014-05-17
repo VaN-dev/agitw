@@ -1,0 +1,35 @@
+<?php
+// src/Van/UserBundle/Document/User.php
+
+namespace Van\UserBundle\Document;
+
+use FOS\UserBundle\Model\User as BaseUser;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Doctrine\ODM\MongoDB\Mapping\Annotations\ReferenceMany;
+
+/**
+ * @MongoDB\Document
+ */
+class User extends BaseUser
+{
+    /**
+     * @MongoDB\Id(strategy="auto")
+     */
+    protected $id;
+    
+    /**
+     * @ReferenceMany(targetDocument="Van\WallBundle\Document\Post", mappedBy="user")
+     */
+    protected $posts;
+    
+    /**
+     * @ReferenceMany(targetDocument="Van\UserBundle\Document\User")
+     */
+    protected $friends;
+
+    public function __construct()
+    {
+        parent::__construct();
+        // your own logic
+    }
+}

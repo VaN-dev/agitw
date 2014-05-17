@@ -1,0 +1,7 @@
+{# src/Van/WallBundle/Resources/views/Form/textarea_widget.html.twig #}
+
+{% block textarea_widget %}
+{% spaceless %}
+    <textarea class="form-control" {{ block('widget_attributes') }}>{{ value }}</textarea>
+{% endspaceless %}
+{% endblock textarea_widget %}

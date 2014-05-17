@@ -1,0 +1,105 @@
+<?php
+// src/Van/UserBundle/Document/User.php
+
+namespace Van\UserBundle\Document;
+
+use FOS\UserBundle\Model\User as BaseUser;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Doctrine\ODM\MongoDB\Mapping\Annotations\ReferenceMany;
+
+/**
+ * @MongoDB\Document
+ */
+class User extends BaseUser
+{
+    /**
+     * @MongoDB\Id(strategy="auto")
+     */
+    protected $id;
+    
+    /**
+     * @ReferenceMany(targetDocument="Van\WallBundle\Document\Post", mappedBy="user")
+     */
+    protected $posts;
+    
+    /**
+     * @ReferenceMany(targetDocument="Van\UserBundle\Document\User")
+     */
+    protected $friends;
+
+    public function __construct()
+    {
+        parent::__construct();
+        // your own logic
+    }
+
+    /**
+     * Get id
+     *
+     * @return id $id
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Add post
+     *
+     * @param Van\WallBundle\Document\Post $post
+     */
+    public function addPost(\Van\WallBundle\Document\Post $post)
+    {
+        $this->posts[] = $post;
+    }
+
+    /**
+     * Remove post
+     *
+     * @param Van\WallBundle\Document\Post $post
+     */
+    public function removePost(\Van\WallBundle\Document\Post $post)
+    {
+        $this->posts->removeElement($post);
+    }
+
+    /**
+     * Get posts
+     *
+     * @return Doctrine\Common\Collections\Collection $posts
+     */
+    public function getPosts()
+    {
+        return $this->posts;
+    }
+
+    /**
+     * Add friend
+     *
+     * @param Van\UserBundle\Document\User $friend
+     */
+    public function addFriend(\Van\UserBundle\Document\User $friend)
+    {
+        $this->friends[] = $friend;
+    }
+
+    /**
+     * Remove friend
+     *
+     * @param Van\UserBundle\Document\User $friend
+     */
+    public function removeFriend(\Van\UserBundle\Document\User $friend)
+    {
+        $this->friends->removeElement($friend);
+    }
+
+    /**
+     * Get friends
+     *
+     * @return Doctrine\Common\Collections\Collection $friends
+     */
+    public function getFriends()
+    {
+        return $this->friends;
+    }
+}

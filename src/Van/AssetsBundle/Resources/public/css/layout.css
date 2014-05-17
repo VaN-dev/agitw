@@ -1,0 +1,33 @@
+body {
+    background:#EEE;
+}
+
+.navbar-user-container {
+    height:50px;
+    line-height:48px;
+    color:#FFF;
+}
+
+.post-container {
+    border:1px solid #DDD;
+    background:#FFF;
+    padding:5px;
+    margin:0 0 5px 0;
+}
+
+.calculator-btn {
+    margin:0 5px 5px 0;
+}
+.calculator-field {
+    width:50px;
+    height:30px;
+}
+.calculator-operator {
+    width:20px;
+    display:inline-block;
+    text-align:center;
+}
+
+.invitation-button {
+    margin:20px 0 0 0;
+}
