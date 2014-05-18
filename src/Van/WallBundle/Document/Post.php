@@ -19,7 +19,12 @@ class Post
     /** 
      * @ReferenceOne(targetDocument="\Van\UserBundle\Document\User", inversedBy="posts") 
      */
-    protected $user;
+    protected $from;
+    
+    /** 
+     * @ReferenceOne(targetDocument="\Van\UserBundle\Document\User") 
+     */
+    protected $to;
     
     /**
      * @MongoDB\String
@@ -36,6 +41,9 @@ class Post
         $this->date = new \DateTime();
     }
 
+
+
+
     /**
      * Get id
      *
@@ -47,25 +55,25 @@ class Post
     }
 
     /**
-     * Set user
+     * Set from
      *
-     * @param \Van\UserBundle\Document\User $user
+     * @param \Van\UserBundle\Document\User $from
      * @return self
      */
-    public function setUser(\Van\UserBundle\Document\User $user)
+    public function setFrom(\Van\UserBundle\Document\User $from)
     {
-        $this->user = $user;
+        $this->from = $from;
         return $this;
     }
 
     /**
-     * Get user
+     * Get from
      *
-     * @return \Van\UserBundle\Document\User $user
+     * @return \Van\UserBundle\Document\User $from
      */
-    public function getUser()
+    public function getFrom()
     {
-        return $this->user;
+        return $this->from;
     }
 
     /**
@@ -110,5 +118,27 @@ class Post
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * Set to
+     *
+     * @param \Van\UserBundle\Document\User $to
+     * @return self
+     */
+    public function setTo(\Van\UserBundle\Document\User $to)
+    {
+        $this->to = $to;
+        return $this;
+    }
+
+    /**
+     * Get to
+     *
+     * @return \Van\UserBundle\Document\User $to
+     */
+    public function getTo()
+    {
+        return $this->to;
     }
 }

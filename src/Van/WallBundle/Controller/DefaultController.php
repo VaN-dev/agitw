@@ -21,11 +21,12 @@ class DefaultController extends Controller
             $dm = $this->get('doctrine_mongodb')->getManager();
             
             $post = new Post;
-            $post->setUser($this->getUser());
-            $form = $this->createForm(new PostType(), $post);
+            $post->setFrom($this->getUser());
+            $post->setTo($this->getUser());
+            $form = $this->createForm(new PostType(), $post, array('dm' => $dm,));
             
             $post_repository = $dm->getRepository('Van\WallBundle\Document\Post');
-            $qb = $post_repository->createQueryBuilder('Van\WallBundle\Document\Post')->field('user')->references($this->getUser())->sort('date', 'desc');;
+            $qb = $post_repository->createQueryBuilder('Van\WallBundle\Document\Post')->field('to')->references($this->getUser())->sort('date', 'desc');
             $query = $qb->getQuery();
             $tmpPosts = $query->execute();
             $posts = array();
@@ -35,7 +36,6 @@ class DefaultController extends Controller
                     $posts[] = $post;
                 }
             }
-            \Doctrine\Common\Util\Debug::dump($posts);
             
             $users = $this->get('doctrine_mongodb')
                 ->getManager()
@@ -44,6 +44,7 @@ class DefaultController extends Controller
                 ->sort('username', 'ASC')
                 ->getQuery()
                 ->execute();
+            $users = $this->getUser()->excludeFriends($users);
             
             $invitation_repository = $dm->getRepository('Van\WallBundle\Document\Invitation');
             $qb = $invitation_repository->createQueryBuilder('Van\WallBundle\Document\Invitation')->field('to')->references($this->getUser())->field('state')->equals(0)->sort('date', 'desc');
@@ -70,13 +71,13 @@ class DefaultController extends Controller
         $user = $this->getUser();
         $post = new Post;
         
-        $form = $this->createForm(new PostType(), $post);
+        $form = $this->createForm(new PostType(), $post, array('dm' => $dm,));
 
         $request = $this->getRequest();
 
         if ($request->getMethod() == 'POST') {
             $form->bind($request);
-            $post->setUser($user);
+            $post->setFrom($user);
             
             if ($form->isValid()) {
                 
@@ -95,7 +96,6 @@ class DefaultController extends Controller
         $user = $this->getUser();
         
         $dm = $this->get('doctrine_mongodb')->getManager();
-        // $to = $dm->getRepository('Van\UserBundle\Document\User')->find($id);
         
         $invitation = new Invitation;
         
@@ -132,11 +132,19 @@ class DefaultController extends Controller
             ->sort('username', 'ASC')
             ->getQuery()
             ->execute();
+        $users = $this->getUser()->excludeFriends($users);
         
-        return $this->render('VanWallBundle:Default:invitation.html.twig', array(
+        $invitation_repository = $dm->getRepository('Van\WallBundle\Document\Invitation');
+            $qb = $invitation_repository->createQueryBuilder('Van\WallBundle\Document\Invitation')->field('to')->references($this->getUser())->field('state')->equals(0)->sort('date', 'desc');
+            $query = $qb->getQuery();
+            $invitations = $query->execute();
+        
+        return $this->render('VanWallBundle:Default:invitation.html.twig', array( 
+            'users' => $users,
+            'invitations' => $invitations,
+            'friends' => $this->getUser()->getFriends(),
             'user' => $user,
             'invitation' => $invitation,
-            'users' => $users
         ));
     }
     

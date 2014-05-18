@@ -19,13 +19,6 @@
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
     
         <div class="col-md-3" role="navigation">
-            <div class="list-group">
-                <a class="list-group-item active" href="#">Link</a>
-                <a class="list-group-item" href="#">Link</a>
-                <a class="list-group-item" href="#">Link</a>
-                <a class="list-group-item" href="#">Link</a>
-            </div>
-            
             {#
             <h3>The Mighty Computer</h3>
             <div class="calculator row"> 
@@ -83,7 +76,7 @@
             {% if invitations is defined %}
                 <ul>
                 {% for invitation in invitations %}
-                    <li><a href="{{ path('vanwall_invitation', {'id': invitation.id}) }}">from {{ invitation.from.username }}</a> state:{{ invitation.state }}</li>
+                    <li><a href="{{ path('vanwall_invitation', {'id': invitation.id}) }}">from {{ invitation.from.username }}</a></li>
                 {% endfor %}
                 </ul>
             {% endif %}
@@ -105,7 +98,7 @@
             {% if posts is defined %}
                 {% for post in posts %}
                     <div class="post-container">
-                        <p><strong>by {{ post.user.username }}</strong></p>
+                        <p><strong>by {{ post.from.username }}</strong></p>
                         <p>{{ post.date|date("Y-d-m H:i") }}</p>
                         <p>{{ post.content }}</p>
                     </div>
@@ -118,6 +111,8 @@
     
     {% else %}
     
+        {% render(controller( 'FOSUserBundle:Security:login' )) %}
+        {% render(controller( 'FOSUserBundle:Registration:register' )) %}
     
     {% endif %}
 

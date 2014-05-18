@@ -18,7 +18,7 @@ class User extends BaseUser
     protected $id;
     
     /**
-     * @ReferenceMany(targetDocument="Van\WallBundle\Document\Post", mappedBy="user")
+     * @ReferenceMany(targetDocument="Van\WallBundle\Document\Post", mappedBy="from")
      */
     protected $posts;
     
@@ -32,6 +32,8 @@ class User extends BaseUser
         parent::__construct();
         // your own logic
     }
+
+
 
     /**
      * Get id
@@ -56,7 +58,7 @@ class User extends BaseUser
     /**
      * Remove post
      *
-     * @param Van\WallBundle\Document\Post $post
+     * @param Van\UserBundle\Document\Post $post
      */
     public function removePost(\Van\WallBundle\Document\Post $post)
     {
@@ -101,5 +103,37 @@ class User extends BaseUser
     public function getFriends()
     {
         return $this->friends;
+    }
+    
+    /**
+     * Is friend with
+     *
+     * @param Van\UserBundle\Document\User $user
+     * @return boolean
+     */
+    public function isFriendWith(\Van\UserBundle\Document\User $user)
+    {
+        // echo count($this->friends);
+        // echo '<pre>';
+        // \Doctrine\Common\Util\Debug::dump($this->friends->toArray());
+        // echo '</pre>';
+        // die();
+
+        if(in_array($user, $this->friends->toArray())) {
+           return true;
+        }
+        return false;
+    }
+    
+    public function excludeFriends($users) {
+        $usersWithoutFriends = array();
+        if(isset($users)) {
+            foreach($users as $user) {
+                if(!in_array($user, $this->friends->toArray())) {
+                    $usersWithoutFriends[] = $user;
+                }
+            }
+        }
+        return $usersWithoutFriends;
     }
 }

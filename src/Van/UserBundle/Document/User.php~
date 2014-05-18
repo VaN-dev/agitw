@@ -18,7 +18,7 @@ class User extends BaseUser
     protected $id;
     
     /**
-     * @ReferenceMany(targetDocument="Van\WallBundle\Document\Post", mappedBy="user")
+     * @ReferenceMany(targetDocument="Van\WallBundle\Document\Post", mappedBy="from")
      */
     protected $posts;
     
@@ -31,5 +31,77 @@ class User extends BaseUser
     {
         parent::__construct();
         // your own logic
+    }
+
+
+
+    /**
+     * Get id
+     *
+     * @return id $id
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Add post
+     *
+     * @param Van\WallBundle\Document\Post $post
+     */
+    public function addPost(\Van\WallBundle\Document\Post $post)
+    {
+        $this->posts[] = $post;
+    }
+
+    /**
+     * Remove post
+     *
+     * @param Van\UserBundle\Document\Post $post
+     */
+    public function removePost(\Van\WallBundle\Document\Post $post)
+    {
+        $this->posts->removeElement($post);
+    }
+
+    /**
+     * Get posts
+     *
+     * @return Doctrine\Common\Collections\Collection $posts
+     */
+    public function getPosts()
+    {
+        return $this->posts;
+    }
+
+    /**
+     * Add friend
+     *
+     * @param Van\UserBundle\Document\User $friend
+     */
+    public function addFriend(\Van\UserBundle\Document\User $friend)
+    {
+        $this->friends[] = $friend;
+    }
+
+    /**
+     * Remove friend
+     *
+     * @param Van\UserBundle\Document\User $friend
+     */
+    public function removeFriend(\Van\UserBundle\Document\User $friend)
+    {
+        $this->friends->removeElement($friend);
+    }
+
+    /**
+     * Get friends
+     *
+     * @return Doctrine\Common\Collections\Collection $friends
+     */
+    public function getFriends()
+    {
+        return $this->friends;
     }
 }

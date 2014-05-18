@@ -19,7 +19,12 @@ class Post
     /** 
      * @ReferenceOne(targetDocument="\Van\UserBundle\Document\User", inversedBy="posts") 
      */
-    protected $user;
+    protected $from;
+    
+    /** 
+     * @ReferenceOne(targetDocument="\Van\UserBundle\Document\User") 
+     */
+    protected $to;
     
     /**
      * @MongoDB\String
@@ -34,5 +39,84 @@ class Post
     public function __construct()
     {
         $this->date = new \DateTime();
+    }
+
+
+
+
+    /**
+     * Get id
+     *
+     * @return id $id
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set from
+     *
+     * @param \Van\UserBundle\Document\User $from
+     * @return self
+     */
+    public function setFrom(\Van\UserBundle\Document\User $from)
+    {
+        $this->from = $from;
+        return $this;
+    }
+
+    /**
+     * Get from
+     *
+     * @return \Van\UserBundle\Document\User $from
+     */
+    public function getFrom()
+    {
+        return $this->from;
+    }
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     * @return self
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string $content
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * Set date
+     *
+     * @param date $date
+     * @return self
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return date $date
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 }
