@@ -32,7 +32,7 @@ class DefaultController extends Controller
             $posts = array();
             if(!empty($tmpPosts)) {
                 foreach($tmpPosts as $key => $post) {
-                    $post->setContent(\Van\WallBundle\Utils\Utils::sanitizePost($post->getContent()));
+                    $post->setContent(\Van\WallBundle\Utils\Utils::buildLink(\Van\WallBundle\Utils\Utils::sanitizePost($post->getContent())));
                     $posts[] = $post;
                 }
             }

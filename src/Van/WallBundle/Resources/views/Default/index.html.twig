@@ -100,7 +100,7 @@
                     <div class="post-container">
                         <p><strong>by {{ post.from.username }}</strong></p>
                         <p>{{ post.date|date("Y-d-m H:i") }}</p>
-                        <p>{{ post.content }}</p>
+                        <p>{{ post.content|raw('html') }}</p>
                     </div>
                 {% endfor %}
             {% endif %}
