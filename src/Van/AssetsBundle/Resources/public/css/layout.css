@@ -2,10 +2,17 @@ body {
     background:#EEE;
 }
 
+h1 {
+    margin:10px 0 20px 0;
+}
+
 .navbar-user-container {
     height:50px;
     line-height:48px;
+}
+.navbar-user-container label {
     color:#FFF;
+    font-weight:normal;
 }
 
 .post-container {
@@ -34,4 +41,9 @@ body {
 
 .navbar-brand {
     padding:5px;
+}
+
+.fos_user_registration_register  label {
+    display:inline-block;
+    width:200px;
 }

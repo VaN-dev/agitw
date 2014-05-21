@@ -1,0 +1,16 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block fos_user_content %}
+
+<div class=" col-md-5">
+  <p>Hello stranger, welcome to </p>
+  <h1>Another Geek In The Wall</h1>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce justo tellus, tincidunt a lectus sed, viverra fringilla tellus. 
+  Aliquam venenatis ut ante id sagittis. Proin sed diam non enim lobortis dignissim. Vestibulum neque ligula, convallis vel magna nec, 
+  tempus feugiat nunc. In hac habitasse platea dictumst. Ut pretium sem ut massa lacinia convallis. Morbi venenatis eget lorem vel adipiscing. 
+  Cras adipiscing odio lorem, dapibus aliquam libero laoreet vel. Donec metus urna, tempor et fringilla vel, pretium vitae lacus. Morbi vehicula pretium egestas. </p>
+</div>
+
+
+{% include "FOSUserBundle:Registration:register_content.html.twig" %}
+{% endblock fos_user_content %}

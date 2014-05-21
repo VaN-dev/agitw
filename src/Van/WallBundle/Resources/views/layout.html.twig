@@ -27,10 +27,10 @@
                 <div class="navbar-collapse collapse">
                     <div class="pull-right navbar-right navbar-user-container">
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                            Welcome {{ app.user.username }} - <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+                            <label>Welcome {{ app.user.username }} -</label> <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
                         {% else %}
-                            <a href="{{ path('fos_user_registration_register') }}" class="btn btn-primary">Register</a>
-                            <a href="{{ path('fos_user_security_login') }}" class="btn btn-primary">Connexion</a>
+                            {% render(controller( 'VanUserBundle:Security:login' )) %}
+                            
                         {% endif %}
                     </div>
                 </div><!--/.navbar-collapse -->
